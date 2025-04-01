@@ -106,8 +106,6 @@ class LBPublicConnector:
     ```
     """
 
-
-
     def __init__(self, cache_path="cache.db"):
         logger.info("Initializing LBPublicConnector with cache path: %s", cache_path)
         self.session = requests.Session()
@@ -230,7 +228,7 @@ class LBPublicConnector:
             resolved_url = response.url
 
             # Validate the resolved URL structure
-            if "letterboxd.com/film/" not in resolved_url:
+            if "letterboxd.com/" not in resolved_url and "/film/" not in resolved_url:
                 logger.warning(f"Unexpected URL format after resolving: {resolved_url}")
                 return None
 
@@ -333,7 +331,10 @@ class LBPublicConnector:
 
             lb_page = html.fromstring(res.text)
 
-        tmdb_link = lb_page.xpath("//a[@data-track-action='TMDb']")
+        tmdb_link = lb_page.xpath("//a[@data-track-action='TMDB']")
+        if not tmdb_link:
+            tmdb_link = lb_page.xpath("//a[@data-track-action='TMDb']")
+
         if not tmdb_link:
             raise ValueError("No TMDb link found on page.")
 

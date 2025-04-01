@@ -134,17 +134,17 @@ class CLIRenderer:
             film_details.pop("Original Title", None)
         self.render_dict(film_details, expand=False)
 
-    def clear_last_rows(self, num_rows=5):
-        # Use ANSI escape codes to move the cursor up and clear lines
-        clear_lines = f"\033[{num_rows}F\033[J"  # Move up `num_rows` lines and clear
-        sys.stdout.write(clear_lines)  # Write raw ANSI codes directly to stdout
-        sys.stdout.flush()  # Ensure the output is flushed
+    # def clear_last_rows(self, num_rows=5):
+    #     # Use ANSI escape codes to move the cursor up and clear lines
+    #     clear_lines = f"\033[{num_rows}F\033[J"  # Move up `num_rows` lines and clear
+    #     sys.stdout.write(clear_lines)  # Write raw ANSI codes directly to stdout
+    #     sys.stdout.flush()  # Ensure the output is flushed
 
-    def render_last_dict_rows(self,metadata, num_rows=5):
-        self.clear_last_rows(num_rows*2+1)
-        trimmed_metadata = dict(list(metadata.items())[-num_rows:])
+    # def render_last_dict_rows(self,metadata, num_rows=5):
+    #     self.clear_last_rows(num_rows*2+1)
+    #     trimmed_metadata = dict(list(metadata.items())[-num_rows:])
 
-        self.render_dict(trimmed_metadata, expand=False)
+    #     self.render_dict(trimmed_metadata, expand=False)
 
 
     @staticmethod

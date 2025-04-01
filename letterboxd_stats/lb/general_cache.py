@@ -4,7 +4,7 @@ GeneralCache Module
 
 This module provides a lightweight SQLite-based caching system for storing and
 retrieving key-value pairs within a specified namespace (prefix). It is useful
-for reducing redundant operations, such as repeated API calls or computation.
+for reducing redundant operations, such as repeated API calls.
 
 Classes:
 --------

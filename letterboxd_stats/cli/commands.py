@@ -1,4 +1,3 @@
-# cli/commands.py
 import logging
 
 from .letterboxd_cli import LetterboxdCLI

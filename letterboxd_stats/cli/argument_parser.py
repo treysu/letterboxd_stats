@@ -9,9 +9,7 @@ def create_parser():
     )
     parser.add_argument("-s", "--search-person", help="Search for a person")
     parser.add_argument("-S", "--search-film", help="Search for a film")
-    parser.add_argument(
-        "-d", "--download", help="Download letterboxd data", action="store_true"
-    )
+    parser.add_argument("-d", "--download", help="Download letterboxd data", action="store_true")
     parser.add_argument(
         "-W",
         "--watchlist",
