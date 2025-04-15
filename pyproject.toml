@@ -6,8 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "letterboxd_stats"
 version = "0.3.0"
 authors = [
-    { name = "mBaratta96" },
-    { name = "TreySu" }
+    { name = "mBaratta96" }
     ]
 description = "Get information about your Letterboxd activity."
 readme = "README.md"

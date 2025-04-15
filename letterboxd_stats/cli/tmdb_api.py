@@ -130,7 +130,7 @@ class TMDbAPI:
             for movie_ in movie_credits["crew"]
         ]
         if len(list_of_movies) == 0:
-            raise ValueError("The selected person doesn't have any film.")
+            raise ValueError("The selected person doesn't have any films.")
         df = pd.DataFrame(list_of_movies).set_index("Id")
         return df, person_["name"], person_["known_for_department"]
 
@@ -155,6 +155,7 @@ class TMDbAPI:
             "Runtime": movie_details["runtime"],
             "Overview": movie_details["overview"],
             "Release Date": movie_details["release_date"],
+            #"IMDB ID": movie_details["imdb_id"],
         }
 
         poster_url = self._get_tmdb_poster_url(movie_details.get("poster_path"))
@@ -185,3 +186,29 @@ class TMDbAPI:
         if len([f"{result.title} ({result.release_date})" for result in search_results]) == 0:
             raise ValueError("No results found for your TMDb movie search.")
         return search_results
+
+    def fetch_imdb_id(self, tmdb_id: int) -> str | None:
+        """
+        Retrieve the IMDb ID for a given TMDb movie ID.
+
+        Parameters:
+        -----------
+        tmdb_id : int
+            The TMDb movie ID.
+
+        Returns:
+        --------
+        str | None
+            The corresponding IMDb ID, or None if not found.
+        """
+        try:
+            movie_details = self.movie.details(tmdb_id)
+            imdb_id = movie_details.get("imdb_id")
+            if imdb_id:
+                return imdb_id
+            else:
+                logger.warning(f"No IMDb ID found for TMDb ID {tmdb_id}.")
+                return None
+        except TMDbException as e:
+            logger.error(f"Error fetching IMDb ID for TMDb ID {tmdb_id}: {e}")
+            return None

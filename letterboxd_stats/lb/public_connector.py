@@ -138,8 +138,8 @@ class LBPublicConnector:
         search_page = html.fromstring(res.text)
         film_list = search_page.xpath("//div[@class='film-detail-content']")
         if not film_list or len(film_list) == 0:
-            logger.warning("No results found for query: %s", search_query)
-            raise ValueError(f"No results found for query: {search_query}")
+            logger.warning("No results found in Letterboxd for query: %s", search_query)
+            raise ValueError(f"No results found in Letterboxd for query: {search_query}")
 
         logger.info("Found %d results for query: %s", len(film_list), search_query)
 
@@ -349,26 +349,3 @@ class LBPublicConnector:
         tmdb_id = tmdb_link[0].get("href").split("/")[-2]
         logger.info("Successfully fetched TMDb ID: %s from URL: %s", tmdb_id, lb_url)
         return int(tmdb_id)
-
-    # def get_public_film_metadata(self, lb_title: str):
-    #     """
-    #     Fetch public metadata for a film.
-
-    #     Args:
-    #         lb_title (str): The title of the film.
-
-    #     Returns:
-    #         dict: Metadata for the film.
-    #     """
-    #     # Example URL: https://letterboxd.com/film/seven-samurai/
-    #     film_url = f"{LB_BASE_URL}/film/{lb_title.replace(' ', '-').lower()}/"
-    #     res = self.session.get(film_url)
-    #     if res.status_code != 200:
-    #         raise ConnectionError("Failed to retrieve film metadata.")
-
-    #     # Parse metadata
-    #     film_page = html.fromstring(res.text)
-    #     title = film_page.xpath("//h1[@class='headline-1 js-widont']")[0].text.strip()
-    #     synopsis = film_page.xpath("//div[@class='synopsis']//p")[0].text.strip()
-
-    #     return {"title": title, "synopsis": synopsis}

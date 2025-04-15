@@ -125,7 +125,6 @@ class LBUserDataExporter:
             raise
 
         # Extract the archive
-        #extracted_dir = os.path.join(download_dir, os.path.splitext(filename)[0])
         extracted_dir = download_dir
 
         try:

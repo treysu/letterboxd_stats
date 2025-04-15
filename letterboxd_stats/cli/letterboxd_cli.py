@@ -187,15 +187,15 @@ class LetterboxdCLI:
         search_result = search_results[
             user_choose_option_search_result([result.name for result in search_results])
         ]  # Get User Input
-        person_films_df, name, known_for_department = self.tmdb_api.fetch_person_details(
+        person_films_df, person_name, known_for_department = self.tmdb_api.fetch_person_details(
             search_result["id"]
         )
-        logger.debug("Person found: %s, Known for: %s", name, known_for_department)
+        logger.debug("Person found: %s, Known for: %s", person_name, known_for_department)
 
 
         department = user_choose_option(
             person_films_df["Department"].unique(),
-            f"Select a department for {name}",
+            f"Select a department for {person_name}",
             known_for_department,
         )
 
@@ -218,7 +218,7 @@ class LetterboxdCLI:
                 department_films_df["Release Date"] = pd.to_datetime(department_films_df["Release Date"])
                 department_films_df.sort_values(by="Release Date", inplace=True)
                 logger.debug("Added watched status and sorted by release date.")
-            self.renderer.render_table(department_films_df, name)
+            self.renderer.render_table(department_films_df, person_name)
 
             selected_film = user_choose_film_from_dataframe(department_films_df)
 
@@ -228,15 +228,16 @@ class LetterboxdCLI:
                 #search_film_query = f"tmdb:{selected_film['Id']}"  # type: ignore
                 letterboxd_title = self.interactive_lb_search(search_film_query, return_first_result=True)
 
-                if not letterboxd_title:
-                    logger.warning("No results selected for film: %s", search_query)
-                    return
-                self.interact_with_film(letterboxd_title)
-                selected_film = user_choose_film_from_dataframe(person_films_df)
+                if letterboxd_title:
+                    self.interact_with_film(letterboxd_title)
+                else:
+                    logger.warning("No results selected for person: %s", person_name)
+
+                selected_film = user_choose_film_from_dataframe(department_films_df)
 
             department = user_choose_option(
                 person_films_df["Department"].unique(),
-                f"Select a department for {name}",
+                f"Select a department for {person_name}",
                 known_for_department,
             )
 
@@ -339,7 +340,7 @@ class LetterboxdCLI:
         """
         try:
             search_results = self.lb_connector.search_lb(search_query)
-            print(search_results)
+            #print(search_results)
             if not search_results:
                 return None
             # If we want to select films from the search page, get more data to print the selection prompt.

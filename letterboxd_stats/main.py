@@ -72,7 +72,7 @@ logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger(__name__)
 
 def main():
-    logger.info("Starting Letterboxd Stats CLI.")
+    logger.info("Starting Letterboxd Stats CLI Application.")
 
     args = parse_args()
 

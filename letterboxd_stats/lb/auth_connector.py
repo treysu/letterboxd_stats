@@ -165,8 +165,7 @@ class LBAuthConnector(LBPublicConnector):
         # Return the simplified dictionary
         metadata = {
             "Watched": any(
-                item.get("watched", False)
-                for item in metadata_json.get("watchables", [])
+                item.get("watched", False) for item in metadata_json.get("watchables", [])
             ),
             "Liked": any(
                 item.get("liked", False) for item in metadata_json.get("likeables", [])

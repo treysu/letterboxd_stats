@@ -32,3 +32,6 @@ ENV.bak/
 # Program files
 config.toml
 static/
+
+# misc
+sql_debug.py

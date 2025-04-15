@@ -11,4 +11,4 @@ functionality.
 
 from .auth_connector import LBAuthConnector
 
-__all__ = ["LBAuthConnector"]
+__all__ = ["LBPublicConnector","LBAuthConnector"]
