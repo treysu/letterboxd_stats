@@ -379,15 +379,15 @@ class LetterboxdCLI:
             logger.debug("Processing 'Lists' export type.")
             list_path = self.export_viewer.choose_list_from_exports(exports_path)
             while list_path:
-                self.view_lb_export_csv("Lists", os.path.join(exports_path, list_path), 100, header=3)
+                self._view_lb_export_csv("Lists", os.path.join(exports_path, list_path), 100, header=3)
                 list_path = self.export_viewer.choose_list_from_exports(exports_path)
 
         else:
             logger.debug("Processing '%s' export type.", export_type)
-            self.view_lb_export_csv(export_type, exports_path, self.renderer.list_print_limit)
+            self._view_lb_export_csv(export_type, exports_path, self.renderer.list_print_limit)
 
 
-    def view_lb_export_csv(
+    def _view_lb_export_csv(
         self, export_type: str, path: str, limit: int = None, header=0
     ):
         """There are some operations that are the same for all the .csv files.
